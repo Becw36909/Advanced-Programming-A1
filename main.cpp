@@ -37,8 +37,8 @@ int main(int argc, char** argv) {
   PathSolver* pathSolver = new PathSolver();
   pathSolver->forwardSearch(env);
 
-  // NodeList* exploredPositions = nullptr;
-  // exploredPositions = pathSolver->getNodesExplored();
+  NodeList* exploredPositions = nullptr;
+  exploredPositions = pathSolver->getNodesExplored();
 
   // Get the path
   // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 3
@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
   printEnvStdout(env, solution);
 
   delete pathSolver;
-  //delete exploredPositions;
+  delete exploredPositions;
   delete solution;
 }
 
@@ -79,22 +79,30 @@ void printEnvStdout(Env env, NodeList* solution) {
     std::cout << "NodeList SOLUTION size: " << solution->getLength() << std::endl;
 
   // Iterate through the solution path NodeList
-  for (int i = 1; i < solution->getLength(); ++i) {
+  // Loop starts at 2 so that the START and GOAL
+  // nodes are not printed over with direction arrows
+  for (int i = 2; i < solution->getLength(); ++i) {
     // Previous node in path
     Node* prevNode = solution->getNode(i - 1);  
-      std::cout << prevNode->getRow() << ",";
-  std::cout << prevNode->getCol() << ",";
-  std::cout << prevNode->getDistanceTraveled() << std::endl;
     // Current node in path
     Node* currNode = solution->getNode(i);      
 
-// Row of previous node
+      // Ensure nodes are valid
+        if (!prevNode || !currNode) {
+            std::cerr << "Error: Encountered nullptr node in solution NodeList at index " << i - 1 << " or " << i << std::endl;
+            return;
+        }
+
+        // Debug information
+        // std::cout << "Processing node: (" << prevNode->getRow() << "," << prevNode->getCol() << ") to ("
+        //           << currNode->getRow() << "," << currNode->getCol() << ")" << std::endl;
+
+
+ // Row and column of previous node
     int prevRow = prevNode->getRow(); 
-    // Column of previous node 
     int prevCol = prevNode->getCol();  
-    // Row of current node
+    // Row and column of current node
     int currRow = currNode->getRow();  
-    // Column of current node
     int currCol = currNode->getCol();  
 
     // Determine direction symbol based on movement between nodes
@@ -109,6 +117,9 @@ void printEnvStdout(Env env, NodeList* solution) {
     }
   }
 
+      std::cout << "Finished processing path." << std::endl;
+
+
   // Print the updated environment with path symbols
   for (int row = 0; row < ENV_DIM; ++row) {
     for (int col = 0; col < ENV_DIM; ++col) {
@@ -118,6 +129,9 @@ void printEnvStdout(Env env, NodeList* solution) {
     // Move to the next line after each row
     std::cout << std::endl;  
   }
+
+      std::cout << "Finished printing environment." << std::endl;
+
 }
 
 void testNode() {

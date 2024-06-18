@@ -15,9 +15,6 @@ PathSolver::~PathSolver()
 // Execute forward search algorithm
 // To be implemented for Milestone 2
 void PathSolver::forwardSearch(Env env) {
-  // Initialize openList and nodesExplored
-  // NodeList* openList = new NodeList();
-  // NodeList* nodesExplored = new NodeList();
 
   // Variables for movement directions (up, down, left, right)
   int dx[] = {-1, 1, 0, 0};  // Up, Down, Left, Right
@@ -61,12 +58,14 @@ void PathSolver::forwardSearch(Env env) {
     // Check if the current node is the goal node
     if (currentNode->getRow() == goalNode->getRow() &&
         currentNode->getCol() == goalNode->getCol()) {
+      nodesExplored->addElement(currentNode);
+
       goalReached = true;
     } else {
       nodesExplored->addElement(currentNode);
-      std::cout << "Moved node (" << currentNode->getRow() << ", "
-                << currentNode->getCol() << ") to nodesExplored list"
-                << std::endl;
+      // std::cout << "Moved node (" << currentNode->getRow() << ", "
+      //           << currentNode->getCol() << ") to nodesExplored list"
+      //           << std::endl;
 
       // Explore neighbors of the current node
       for (int i = 0; i < possibleMoves; ++i) {
@@ -84,8 +83,8 @@ void PathSolver::forwardSearch(Env env) {
             if (!nodesExplored->contains(neighborNode) &&
                 !openList->contains(neighborNode)) {
               openList->addElement(neighborNode);
-              std::cout << "Added neighbor node (" << newRow << ", " << newCol
-                        << ") to open list" << std::endl;
+              // std::cout << "Added neighbor node (" << newRow << ", " << newCol
+              //           << ") to open list" << std::endl;
             } else {
               delete neighborNode;
             }
@@ -114,7 +113,7 @@ void PathSolver::forwardSearch(Env env) {
   std::cout << "nodesExplored size: " << nodesExplored->getLength() << std::endl;
 
   // Cleanup memory
-  delete openList;
+  delete startNode;
   delete goalNode;
 }
 
@@ -146,7 +145,8 @@ NodeList* PathSolver::getPath(Env env) {
 
     if (nodesExploredCopy == nullptr || nodesExploredCopy->getLength() == 0) {
         std::cerr << "Error: nodesExplored is nullptr or empty." << std::endl;
-        return nullptr; // or handle the error appropriately
+        delete nodesExploredCopy; // Cleanup in case of error
+        return nullptr; 
     }
 
   // Initialize an empty NodeList for the path
@@ -154,10 +154,10 @@ NodeList* PathSolver::getPath(Env env) {
 
     // Get the goal node from nodesExplored (assumed to be the last node)
     Node* goalNode = nodesExploredCopy->getNode(nodesExploredCopy->getLength() - 1);
-            std::cout << "goalNode (" << goalNode->getRow() << "," << goalNode->getCol() << ") ";
+            // std::cout << "goalNode (" << goalNode->getRow() << "," << goalNode->getCol() << ") ";
 
     Node* currentNode = goalNode;
-                std::cout << "currentNode (" << currentNode->getRow() << "," << currentNode->getCol() << ") ";
+                // std::cout << "currentNode (" << currentNode->getRow() << "," << currentNode->getCol() << ") ";
 
     path->addElement(new Node(*currentNode));  // Add the goal node to the path
 
@@ -207,6 +207,7 @@ NodeList* PathSolver::getPath(Env env) {
 
 // Clean up memory used by path NodeList
     delete path;  
+    delete nodesExploredCopy;
 
         // Print the reversed path to debug
     std::cout << "Reversed Path:" << std::endl;
