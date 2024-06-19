@@ -202,10 +202,6 @@ void testNodeList() {
   std::cout << "Estimated distance between b1 and goal b3: "
             << estimatedDistance << std::endl;
 
-  std::cout << "Removing node b2 from the list " << std::endl;
-
-  nodeList->removeElement(b2);
-
   for (int i = 0; i < nodeList->getLength(); ++i) {
     Node* currentNode = nodeList->getNode(i);
     if (currentNode != nullptr) {
@@ -232,25 +228,6 @@ void testNodeList() {
   std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
   std::cout << "checking if node b4 and b5 have the same values: "
             << std::boolalpha << b4->isEqual(*b5) << std::endl;
-
-  for (int i = 0; i < nodeList->getLength(); ++i) {
-    Node* currentNode = nodeList->getNode(i);
-    if (currentNode != nullptr) {
-      std::cout << "Node at index " << i << ": ";
-      std::cout << "Row: " << currentNode->getRow() << ", ";
-      std::cout << "Column: " << currentNode->getCol() << ", ";
-      std::cout << "Distance Traveled: " << currentNode->getDistanceTraveled()
-                << std::endl;
-    } else {
-      std::cout << "Node at index " << i << " is null." << std::endl;
-    }
-    std::cout << std::endl;
-  }
-
-  std::cout << "Removing node b4 from the list " << std::endl;
-  nodeList->removeElement(b4);
-
-  std::cout << "NodeList size: " << nodeList->getLength() << std::endl;
 
   for (int i = 0; i < nodeList->getLength(); ++i) {
     Node* currentNode = nodeList->getNode(i);

@@ -31,8 +31,8 @@ class NodeList {
   /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
   /*                                           */
 
-  // Finds and returns a pointer to the node in the NodeList
-  // with the min estimated distance to the given goal node.
+  // Finds & returns a node in the NodeList
+  // with min estimated dist to given goal node.
   Node* getNodeWithMinEstimatedDist(Node* goalNode);
 
   // Checks if a given node exists in the NodeList.
