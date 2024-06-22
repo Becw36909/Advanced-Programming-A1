@@ -1,0 +1,68 @@
+#ifndef COSC_ASSIGN_ONE_NODELIST
+#define COSC_ASSIGN_ONE_NODELIST
+
+#include "Node.h"
+#include "Types.h"
+
+class NodeList {
+ public:
+  /*                                           */
+  /* DO NOT MOFIFY ANY CODE IN THIS SECTION    */
+  /*                                           */
+
+  // Constructor/Destructor
+  NodeList();
+  ~NodeList();
+
+  // Copy Constructor
+  // Produces a DEEP COPY of the NodeList
+  NodeList(NodeList& other);
+
+  // Number of elements in the NodeList
+  int getLength();
+
+  // Add a COPY node element to the BACK of the nodelist.
+  void addElement(Node* newNode);
+
+  // Get a pointer to the ith node in the node list
+  Node* getNode(int i);
+
+  /*                                           */
+  /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
+  /*                                           */
+
+  // Finds & returns a node in the NodeList
+  // with min estimated dist to given goal node.
+  Node* getNodeWithMinEstimatedDist(Node* goalNode);
+
+  // Checks if a given node exists in the NodeList.
+  bool contains(Node* node);
+
+  NodeList& operator=(NodeList& other);
+
+ private:
+  /*                                           */
+  /* DO NOT MOFIFY THESE VARIABLES             */
+  /*                                           */
+
+  // NodeList: list of node objects
+  // You may assume a fixed size for M1, M2, M3
+  // Node* nodes[NODE_LIST_ARRAY_MAX_SIZE];
+
+  //Milestone 4 change for nodes list.
+  Node** nodes;
+
+  // Number of nodes currently in the NodeList
+  int length;
+
+  /*                                           */
+  /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
+  /*                                           */
+
+    int capacity;
+
+    void resize();
+  
+};
+
+#endif  // COSC_ASSIGN_ONE_NODELIST
