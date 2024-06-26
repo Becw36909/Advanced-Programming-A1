@@ -32,23 +32,14 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
 
-    // Print current node details
 
-    void printCurrentNode(Node* node);
+bool getEnvDimensions(Env env, int& rows, int& cols);
 
-    void printNeighbourNode(Node* node);
+bool findStartAndGoal(Env env, int rows, int cols, int& startRow, int& startCol, int& goalRow, int& goalCol);
 
-    void printCheckNode(Node* node);
+void processNodes(Env env, int rows, int cols, Node* startNode, Node* goalNode);
 
-    // Print out the Closed list
-    void printClosedList(NodeList* closedList);
-
-    // Print out the Open list
-    void printOpenList(NodeList* openList);
-
-    bool checkOpenList(Node* neighbourNode);
-
-    bool checkNodesExplored(Node* neighbourNode);
+void addNeighbors(Env env, int rows, int cols, Node* currentNode, int dx[], int dy[], int possibleMoves);
 
 
 
@@ -72,10 +63,6 @@ public:
     Node* startNode;
     Node* goalNode;
 
-    // Helper functions
-    void findStartAndGoal(Env env, int& startRow, int& startCol, int& goalRow, int& goalCol);
-    
-    void getEnvDimensions(Env env, int& rows, int& cols);
 };
 
 

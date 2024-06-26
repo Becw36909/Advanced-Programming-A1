@@ -2,6 +2,10 @@
  * This function is to help you dynamically allocate
  *  memory for a generic 2D Environemnt.
  */
+
+#include "Types.h"
+
+
 Env make_env(const int rows, const int cols) {
    Env env = nullptr;
 
@@ -19,13 +23,22 @@ Env make_env(const int rows, const int cols) {
  * This function is to help you delete a 
  * dynamically allocated 2D Environment.
  */
-void delete_env(Env env, int rows, int cols) {
-   if (rows >= 0 && cols >= 0) {
-      for (int i = 0; i != rows; ++i) {
-         delete env[i];
-      }
-      delete env;
-   }
+// void delete_env(Env env, int rows, int cols) {
+//    if (rows >= 0 && cols >= 0) {
+//       for (int i = 0; i != rows; ++i) {
+//          delete env[i];
+//       }
+//       delete env;
+//    }
 
-   return;
+//    return;
+// }
+
+void delete_env(Env env, int rows, int cols) {
+    if (rows > 0 && cols > 0) {
+        for (int i = 0; i < rows; ++i) {
+            delete[] env[i];  // delete[] to deallocate arrays
+        }
+        delete[] env;  // delete[] to deallocate the array of pointers
+    }
 }

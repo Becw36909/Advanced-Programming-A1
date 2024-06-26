@@ -38,18 +38,12 @@ class NodeList {
   // Checks if a given node exists in the NodeList.
   bool contains(Node* node);
 
-  NodeList& operator=(NodeList& other);
-
  private:
   /*                                           */
   /* DO NOT MOFIFY THESE VARIABLES             */
   /*                                           */
 
-  // NodeList: list of node objects
-  // You may assume a fixed size for M1, M2, M3
-  // Node* nodes[NODE_LIST_ARRAY_MAX_SIZE];
-
-  //Milestone 4 change for nodes list.
+  // Milestone 4 change for nodes list.
   Node** nodes;
 
   // Number of nodes currently in the NodeList
@@ -59,10 +53,13 @@ class NodeList {
   /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
   /*                                           */
 
-    int capacity;
+  // Indicates the maximum number of nodes the NodeList
+  // can hold before needing to resize.
+  int capacity;
 
-    void resize();
-  
+  // Doubles the capacity of the internal array to
+  // accommodate more nodes.
+  void resize();
 };
 
 #endif  // COSC_ASSIGN_ONE_NODELIST
